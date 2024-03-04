@@ -1,0 +1,25 @@
+
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.slick-prev, .slick-next {
+    color: red; /* Change arrow color */
+    font-size: 24px; /* Change arrow size */
+}
+
+/* Additional styles for hover effect */
+.slick-prev:hover, .slick-next:hover {
+    color: blue; /* Change color on hover */
+}
