@@ -1,63 +1,165 @@
 <div class="container-fluid g-0">
-    <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
+  <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
 
-    <main>
-        <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
+  <main>
+    <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
 
-        <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">Day</th>
-                          <th scope="col">Article Name</th>
-                          <th scope="col">Author</th>
-                          <th scope="col">Shares</th>
-                          <th scope="col">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Bootstrap 4 CDN and Starter Template</td>
-                          <td>Cristina</td>
-                          <td>2.846</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
+      <div class="container">
+
+
+        <div class="row" style="padding-bottom: 20px;">
+          <div class="col-md-10">
+            <h5>List of CarBike</h5>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn btn-primary" (click)="openModal()">New Add</button>
+          </div>
         </div>
-    </main>
+
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Serial No.</th>
+                  <th scope="col">Vehicle Type</th>
+                  <th scope="col">Brand Name</th>
+                  <th scope="col">Launch Year</th>
+                  <th scope="col">Fuel Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let item of allVehicleList; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.type}}</td>
+                  <td>{{item.brand}}</td>
+                  <td>{{item.launch_year}}</td>
+                  <td>{{item.fuel_type}}</td>
+                  <td>{{item.price}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary margin-button"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success margin-button"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="mb-3">
+                  <label for="">Vehicle Type</label>
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="">Launch Year</label>
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="">Brand Name</label>
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="">Fuel Type</label>
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+
+              </div>
+
+            
+
+
+              <div class="col-md-6">
+
+                <div class="mb-3">
+                  <label for="">Color</label>
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+                </div>
+
+              </div>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

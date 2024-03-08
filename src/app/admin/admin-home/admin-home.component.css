@@ -48,3 +48,7 @@ app-side-nav{
 *{
     font-size: medium;
 }
+
+.margin-button{
+    margin-right: 3px
+}
