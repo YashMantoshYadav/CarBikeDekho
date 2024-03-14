@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommonService } from 'src/app/services/common.service';
+import Swal from 'sweetalert2';
+declare var $: any;
+
 
 @Component({
   selector: 'app-admin-home',
@@ -7,11 +12,242 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHomeComponent implements OnInit {
 
-  sideNavStatus:boolean = false
+  sideNavStatus: boolean = false
+  addVehicleForm: FormGroup | any
+  submitted: boolean = false
 
-  constructor() { }
+
+  constructor(private common: CommonService) { }
 
   ngOnInit(): void {
+    this.getAllData()
+    this.getAllTypeData()
+    this.getAllbrandData()
+    this.getAllLaunchYearData()
+    this.getAllFuelTypeData()
+    this.getAllColorTypeData()
+
+    this.createForm()
+
   }
+
+
+  createForm() {
+    this.addVehicleForm = new FormGroup({
+      vehicleType: new FormControl('', Validators.required),
+      launchYear: new FormControl('', Validators.required),
+      brandName: new FormControl('', Validators.required),
+      fuelTypeName: new FormControl('', Validators.required),
+      descriptionName: new FormControl('', Validators.required),
+      colorName: new FormControl('', Validators.required),
+      priceName: new FormControl('', Validators.required),
+      ratingName: new FormControl('', Validators.required),
+      imageLinkname: new FormControl('', Validators.required)
+
+    })
+  }
+
+  //open add vehicle modal
+  openModal() {
+    $('#exampleModal').modal('show');
+
+  }
+
+
+  //form control
+  get f() {
+    return this.addVehicleForm.controls;
+  }
+
+
+  //1.vehicle all list
+  allVehicleList: any
+  async getAllData() {
+    try {
+
+      let data = await this.common.getAllVehicleComm()
+
+      if (data.Status == "Success") {
+        this.allVehicleList = data.data
+        console.log("Vehicle all list", this.allVehicleList)
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  //2.add new Vehicle
+  async addNewVehicle() {
+    try {
+      //  console.log(this.addVehicleForm.value)
+      this.submitted = true
+
+      if (this.addVehicleForm.invalid) {
+        console.log("empty")
+        return
+      }
+
+      let type = this.addVehicleForm.value.vehicleType;
+      let year = this.addVehicleForm.value.launchYear;
+      let brand = this.addVehicleForm.value.brandName;
+      let fuel = this.addVehicleForm.value.fuelTypeName;
+      let description = this.addVehicleForm.value.descriptionName;
+      let color = this.addVehicleForm.value.colorName;
+      let rating = this.addVehicleForm.value.ratingName;
+      let image = this.addVehicleForm.value.imageLinkname;
+      let price = this.addVehicleForm.value.priceName;
+
+
+      let data = await this.common.addNewVehicleComm(type, year, brand, fuel, description, color, rating, image, price)
+      console.log(data)
+      if (data.Status == "Success") {
+        this.getAllData()
+        $('#exampleModal').modal('hide');
+
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "success",
+          title: "Data has been Inserted Successfully!",
+          showConfirmButton: false,
+          timer: 2500
+        });
+
+       this.closeModal()
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  closeModal(){
+    this.addVehicleForm.controls['vehicleType'].setValue('');
+    this.addVehicleForm.controls['launchYear'].setValue('');
+    this.addVehicleForm.controls['brandName'].setValue('');
+    this.addVehicleForm.controls['fuelTypeName'].setValue('');
+    this.addVehicleForm.controls['descriptionName'].setValue('');
+    this.addVehicleForm.controls['ratingName'].setValue('');
+    this.addVehicleForm.controls['imageLinkname'].setValue('');
+    this.addVehicleForm.controls['priceName'].setValue('');
+    this.addVehicleForm.controls['colorName'].setValue('');
+    this.submitted=false
+  }
+
+
+  //3.Delete vehicle from list
+
+  async deleteVehicle(item: any) {
+    var vehicleId = item
+    try {
+
+      if (confirm("Do You wants to Delete?")) {
+        console.log("access")
+      }
+      else {
+        console.log("denied")
+        return;
+      }
+
+      let data = await this.common.deleteVehicleComm(vehicleId)
+      if (data.Status == "Success") {
+        this.getAllData()
+
+        //sweet alert popup
+        Swal.fire({
+          icon: "success",
+          title: "Data has been Deleted Successfully!",
+          showConfirmButton: false,
+          timer: 2500
+        })
+
+      }
+
+
+    } catch (error) {
+
+    }
+
+  }
+  //4.Update Vehicle From list
+  updateVehicle() {
+    alert("Comming Soon......");
+
+  }
+
+  //5. View Vehicle Detail
+  viewVehicleDetails() {
+    alert("Comming Soon......");
+
+  }
+
+
+
+  //vehicle type all list
+  allTypeList: any
+  async getAllTypeData() {
+    try {
+      this.allTypeList = await this.common.getAllVehicleTypeComm()
+      console.log("Vehicle All Type", this.allTypeList)
+    } catch (error) {
+
+    }
+  }
+
+
+  //vehicle brand all list
+  allBrandList: any
+  async getAllbrandData() {
+    try {
+      this.allBrandList = await this.common.getAllVehicleBrandComm()
+      console.log("Vehicle All Brand", this.allBrandList)
+
+    } catch (error) {
+
+    }
+  }
+
+  //vehicle Launch Year all list
+  allLaunchYearList: any
+  async getAllLaunchYearData() {
+    try {
+      this.allLaunchYearList = await this.common.getAllVehicleLaunchYearComm()
+      console.log("Vehicle All Launch Year", this.allLaunchYearList)
+
+    } catch (error) {
+
+    }
+  }
+
+  //vehicle Fuel Type all list
+  allFuelTypeList: any
+  async getAllFuelTypeData() {
+    try {
+      this.allFuelTypeList = await this.common.getAllVehicleFuelTypeComm()
+      console.log("Vehicle All Fuel Type", this.allFuelTypeList)
+
+    } catch (error) {
+
+    }
+  }
+
+
+  //vehicle Color Type all list
+  allColorTypeList: any
+  async getAllColorTypeData() {
+    try {
+      this.allColorTypeList = await this.common.getAllVehicleColorTypeComm()
+      console.log("Vehicle All Color Type", this.allColorTypeList)
+
+    } catch (error) {
+
+    }
+  }
+
+
+
 
 }

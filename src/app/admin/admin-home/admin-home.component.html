@@ -1,63 +1,199 @@
 <div class="container-fluid g-0">
-    <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
+  <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
 
-    <main>
-        <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
+  <main>
+    <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
 
-        <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
-            <div class="container">
-                <div class="row">
-                  <div class="col-12">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">Day</th>
-                          <th scope="col">Article Name</th>
-                          <th scope="col">Author</th>
-                          <th scope="col">Shares</th>
-                          <th scope="col">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Bootstrap 4 CDN and Starter Template</td>
-                          <td>Cristina</td>
-                          <td>2.846</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>3.417</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Bootstrap Flexbox Tutorial and Examples</td>
-                          <td>Cristina</td>
-                          <td>1.234</td>
-                          <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
+      <div class="container">
+
+
+        <div class="row" style="padding-bottom: 20px;">
+          <div class="col-md-10">
+            <h5>List of CarBike</h5>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn btn-primary" (click)="openModal()">New Add</button>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Serial No.</th>
+                  <th scope="col">Vehicle Type</th>
+                  <th scope="col">Brand Name</th>
+                  <th scope="col">Launch Year</th>
+                  <th scope="col">Fuel Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let item of allVehicleList; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.type}}</td>
+                  <td>{{item.brand}}</td>
+                  <td>{{item.launch_year}}</td>
+                  <td>{{item.fuel_type}}</td>
+                  <td>{{item.price}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary margin-button" (click)="viewVehicleDetails()"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="updateVehicle()"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button" (click)="deleteVehicle(item.id)"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- modal add new Vehicle start  -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Vehicle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addVehicleForm">
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Vehicle Type</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="vehicleType"
+                    [ngClass]="{'is-invalid': submitted && f.vehicleType.errors}">
+                    <option selected value="">Select vehicle Type</option>
+                    <option value="{{i.type}}" *ngFor="let i of  allTypeList">{{i.type}}</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.vehicleType.errors" class="invalid-feedback">
+                    <div *ngIf="f.vehicleType.errors.required">Required</div>
                   </div>
                 </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Launch Year</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="launchYear" [ngClass]="{'is-invalid': submitted && f.vehicleType.errors}">
+                    <option selected value="">Select Launch Year</option>
+                    <option value="{{item.year}}" *ngFor="let item of allLaunchYearList">{{item.year}}</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.vehicleType.errors" class="invalid-feedback">
+                    <div *ngIf="f.launchYear.errors.required">Required</div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Brand Name</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="brandName" [ngClass]="{'is-invalid': submitted && f.brandName.errors}">
+                    <option selected value="">Select Brand Name</option>
+                    <option value="{{item.brand}}" *ngFor="let item of allBrandList">{{item.brand}}</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.brandName.errors" class="invalid-feedback">
+                    <div *ngIf="f.brandName.errors.required">Required</div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Fuel Type</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="fuelTypeName" [ngClass]="{'is-invalid': submitted && f.fuelTypeName.errors}">
+                    <option selected value="">Select Fuel Type</option>
+                    <option value="{{item.fuel}}" *ngFor="let item of allFuelTypeList">{{item.fuel}}</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.fuelTypeName.errors" class="invalid-feedback">
+                    <div *ngIf="f.fuelTypeName.errors.required">Required</div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Description</label>
+                  <textarea id="w3review" class="form-control" name="w3review" rows="4" cols="50"
+                    placeholder="Enter your description here..." formControlName="descriptionName" [ngClass]="{'is-invalid': submitted && f.descriptionName.errors}">
+                  </textarea>
+
+                  <div *ngIf="submitted && f.descriptionName.errors" class="invalid-feedback">
+                    <div *ngIf="f.descriptionName.errors.required">Required</div>
+                  </div>
+                </div>
+
               </div>
+
+              <div class="col-md-6">
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Color</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="colorName" [ngClass]="{'is-invalid': submitted && f.colorName.errors}">
+                    <option selected value="">Select Color</option>
+                    <option value="{{item.color}}" *ngFor="let item of allColorTypeList">{{item.color}}</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.colorName.errors" class="invalid-feedback">
+                    <div *ngIf="f.colorName.errors.required">Required</div>
+                  </div>
+                </div>
+
+                <label for="" class="label-font">Price</label>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Vehicle Price"
+                    formControlName="priceName" [ngClass]="{'is-invalid': submitted && f.priceName.errors}">
+
+                    <div *ngIf="submitted && f.priceName.errors" class="invalid-feedback">
+                      <div *ngIf="f.priceName.errors.required">Required</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Rating</label>
+                  <select class="form-select " aria-label="Default select example" formControlName="ratingName" [ngClass]="{'is-invalid': submitted && f.ratingName.errors}">
+                    <option selected value="">Select Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+
+                  <div *ngIf="submitted && f.ratingName.errors" class="invalid-feedback">
+                    <div *ngIf="f.ratingName.errors.required">Required</div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Image Link</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Entert Image Link"
+                    formControlName="imageLinkname" [ngClass]="{'is-invalid': submitted && f.imageLinkname.errors}">
+
+                    <div *ngIf="submitted && f.imageLinkname.errors" class="invalid-feedback">
+                      <div *ngIf="f.imageLinkname.errors.required">Required</div>
+                    </div>
+                </div>
+
+              </div>
+
+            </div>
+          </form>
         </div>
-    </main>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="addNewVehicle()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal add new Vehicle End  -->
 
 </div>

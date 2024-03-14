@@ -18,22 +18,22 @@ export class SideNavComponent implements OnInit {
     {
       number:'2',
       name:'Analytics',
-      icon:'fa-solid fa-chart-line'
+      icon:'fa-solid fa-arrow-up-right-from-square'
     },
     {
       number:'3',
       name:'Products',
-      icon:'fa-solid fa-box'
+      icon:'fa-solid fa-arrow-up-right-from-square'
     },
     {
       number:'4',
       name:'Order',
-      icon:'fa-solid fa-cart-shopping'
+      icon:'fa-solid fa-arrow-up-right-from-square'
     },
     {
       number:'5',
       name:'Setting',
-      icon:'fa-solid fa-gear'
+      icon:'fa-solid fa-arrow-up-right-from-square'
     },
     {
       number:'6',
@@ -45,6 +45,8 @@ export class SideNavComponent implements OnInit {
       name:'Contact',
       icon:'fa-solid fa-phone'
     }
+
+    // <i class="fa-solid fa-arrow-up-right-from-square"></i>
   ]
 
   constructor() { }

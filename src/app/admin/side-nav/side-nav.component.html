@@ -1,11 +1,55 @@
 <div class="side-nav-content ">
     <ul class="nav-list" [ngClass]="{'nav-list-open':sideNavStatus}">
-        <li class="nav-list-item" *ngFor="let item of list">
-            <i class="{{item.icon}}"></i>
-            <span>
-                <a href="">{{item.name}}</a>
-            </span>
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin']">
+                <i class="fa-solid fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+          
+
         </li>
+
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin/type']">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>vehicle Type</span>
+            </a>
+            
+        </li>
+
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin/brand']">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>vehicle Brand</span>
+            </a>
+            
+        </li>
+
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin/year']">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>vehicle Launch Year</span>
+            </a>
+            
+        </li>
+
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin/fuel']">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>vehicle Fuel Type</span>
+            </a>
+            
+        </li>
+
+        <li class="nav-list-item">
+            <a [routerLink]="['/admin/color']">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span>vehicle Color</span>
+            </a>
+            
+        </li>
+
+       
 
 
     </ul>

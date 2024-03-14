@@ -1,0 +1,88 @@
+<div class="container-fluid g-0">
+  <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
+
+  <main>
+    <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
+
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
+      <div class="container">
+        <div class="row" style="padding-bottom: 20px;">
+          <div class="col-md-10">
+            <h5>List of Vehicle Color</h5>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn btn-primary" (click)="openModal()">Add New Vehicle Color</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Serial No.</th>
+                  <th scope="col">Vehicle Color Type</th>
+                  <th scope="col">Created At</th>
+                  <th scope="col">Updated At</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let item of allColorTypeList; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.color}}</td>
+                  <td>{{item.created_at|date:'yyyy-mm-dd hh:mm:ss'}}</td>
+                  <td>{{item.updated_at|date:'yyyy-mm-dd hh:mm:ss'}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary margin-button"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="update()"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button" (click)="deleteColorType()"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- modal add new Vehicle type start  -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-ml">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Vehicle Color</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Vehicle Color Type</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput"
+                    placeholder="Entert vehicle Color Type">
+                </div>
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal add new Vehicle type End  -->
+
+
+</div>

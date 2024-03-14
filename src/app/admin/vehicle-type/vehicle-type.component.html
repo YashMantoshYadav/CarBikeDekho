@@ -1,0 +1,97 @@
+<div class="container-fluid g-0">
+  <app-header (sideNavToggle)="sideNavStatus=$event;"></app-header>
+
+  <main>
+    <app-side-nav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-side-nav>
+
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}">
+      <div class="container">
+        <div class="row" style="padding-bottom: 20px;">
+          <div class="col-md-10">
+            <h5>List of Vehicle Type</h5>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn btn-primary" (click)="openModal()">Add New Vehicle Type</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Serial No.</th>
+                  <th scope="col">Vehicle Type</th>
+                  <th scope="col">Created at</th>
+                  <th scope="col">Updated at</th>
+                  <th scope="col">Actions</th>
+
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let item of allTypeList; let i=index;">
+                  <td>{{i+1}}</td>
+                  <td>{{item.type}}</td>
+                  <td>{{item.created_at |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td>{{item.updated_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+
+                  <td>
+                    <button type="button" class="btn btn-primary margin-button"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="updateOpenModal(item)"><i
+                        class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button"><i class="far fa-trash-alt"
+                        (click)="deleteVehicleType(item.id)"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- modal add new Vehicle type start  -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-ml">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" *ngIf="add">Add New Vehicle Type</h5>
+          <h5 class="modal-title" id="exampleModalLabel" *ngIf="update">Update New Vehicle Type</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="vehicleTypeForm">
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="mb-3">
+                  <label for="" class="label-font">Vehicle Type</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Entert vehicle type"
+                    formControlName="vehicleType" [ngClass]="{'is-invalid': submitted && f.vehicleType.errors}">
+
+                  <div *ngIf="submitted && f.vehicleType.errors" class="invalid-feedback">
+                    <div *ngIf="f.vehicleType.errors.required">Required</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="add" type="button" class="btn btn-primary" (click)="formSubmit()">Submit</button>
+          <button *ngIf="update" type="button" class="btn btn-primary" (click)="updateVehicleType()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal add new Vehicle type End  -->
+
+
+</div>
