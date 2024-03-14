@@ -23,3 +23,35 @@
 .slick-prev:hover, .slick-next:hover {
     color: blue; /* Change color on hover */
 }
+
+.slider {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+
+  
