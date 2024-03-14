@@ -327,13 +327,27 @@
 
     </section>
 
-    <section>
+    <section style="background-color: aquamarine;">
+        <h1 class="heading"><span>featured</span> cars</h1>
         <div style="margin-left: 10%; margin-right: 10%; margin-top: 20px;">
             <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let slide of images" class="slide">
                     <div class="card">
                         <img src="{{ slide }}" alt="" class="img-style">
-                        <span>Price: 1500000</span>
+
+                        <div class="stars">
+                            <h3>new model</h3>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+
+
+                        </div>
+                        <div class="price">Rs. 1,500,000</div>
+                        <a href="#" class="btn">check out</a>
+
                     </div>
                 </div>
             </ngx-slick-carousel>
@@ -342,17 +356,6 @@
     </section>
 
 
-    <section>
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </section>
     <!-- featured section end -->
 
     <!-- subscribe section starts -->
