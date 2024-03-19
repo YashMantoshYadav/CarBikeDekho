@@ -42,3 +42,20 @@ export class updateYearModal{
     year:any
 }
 
+export class addFuelTypeModal{
+    fuel:any
+}
+
+export class updateFuelTypeModal{
+    id:any
+    fuel:any
+}
+
+export class addColorTypeModal{
+    color:any
+}
+
+export class updateColorModal{
+    id:any
+    color:any
+}

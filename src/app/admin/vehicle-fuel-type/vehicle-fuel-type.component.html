@@ -34,11 +34,13 @@
                   <td>{{item.fuel}}</td>
                   <td>{{item.created_at|date:'yyyy-mm-dd hh:mm:ss'}}</td>
                   <td>{{item.updated_at|date:'yyyy-mm-dd hh:mm:ss'}}</td>
-            
+
                   <td>
                     <button type="button" class="btn btn-primary margin-button"><i class="far fa-eye"></i></button>
-                    <button type="button" class="btn btn-success margin-button" (click)="updateModal()"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger margin-button" (click)="deleteFuelType()"><i class="far fa-trash-alt"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="updateModal(item)"><i
+                        class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button" (click)="deleteFuelType(item.id)"><i
+                        class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
 
@@ -59,7 +61,8 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel" *ngIf="add">Add New Vehicle Fuel Type</h5>
           <h5 class="modal-title" id="exampleModalLabel" *ngIf="update">Update Vehicle Fuel Type</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
           <form [formGroup]="fuelTypeForm">
@@ -69,7 +72,13 @@
                 <div class="mb-3">
                   <label for="" class="label-font">Vehicle Fuel Type</label>
                   <input type="text" class="form-control" id="formGroupExampleInput"
-                    placeholder="Entert vehicle Fuel Type">
+                    placeholder="Entert vehicle Fuel Type" formControlName="fuelTypeName"
+                    [ngClass]="{'is-invalid': submitted && f.fuelTypeName.errors}">
+
+                  <div *ngIf="submitted && f.fuelTypeName.errors" class="invalid-feedback">
+                    <div *ngIf="f.fuelTypeName.errors.required">Required</div>
+                  </div>
+
                 </div>
 
 

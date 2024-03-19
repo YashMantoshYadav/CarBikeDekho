@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms'
+import Swal from 'sweetalert2';
 declare var $: any
 
 @Component({
@@ -10,37 +12,236 @@ declare var $: any
 export class VehicleColorComponent implements OnInit {
 
   sideNavStatus: boolean = false
+  add: boolean = false
+  update: boolean = false
+  vehicleColorForm: FormGroup | any
+  submitted: boolean = false
 
-  constructor(private common:CommonService) { }
+  constructor(private common: CommonService) { }
 
   ngOnInit(): void {
     this.showVehicleColor()
+    this.createVehicleColorForm()
+
+    $('#dataTable').DataTable({
+      layout: {
+          top1: {
+              searchBuilder: {
+                  logic: 'OR'
+              }
+          }
+      }
+  });
+  }
+
+  //vehicle Color Type all list
+  allColorTypeList: any
+  async showVehicleColor() {
+    try {
+      this.allColorTypeList = await this.common.getAllVehicleColorTypeComm()
+      console.log("Vehicle All Color Type", this.allColorTypeList)
+
+    } catch (error) {
+
+    }
   }
 
   //openModal
   openModal() {
+    this.add = true
+    this.update = false
     $('#exampleModal').modal('show')
   }
 
-    //vehicle Color Type all list
-    allColorTypeList: any
-    async showVehicleColor() {
-      try {
-        this.allColorTypeList = await this.common.getAllVehicleColorTypeComm()
-        console.log("Vehicle All Color Type", this.allColorTypeList)
-  
-      } catch (error) {
-  
-      }
-    }
+  //create form
+  createVehicleColorForm() {
+    this.vehicleColorForm = new FormGroup({
+      colorTypeName: new FormControl('', Validators.required)
+    })
+  }
 
-  update(){
-    alert("Comming Soon....")
+  //form Control
+  get f() {
+    return this.vehicleColorForm.controls
   }
 
 
-  deleteColorType(){
-    alert("Comming Soon....")
+
+  //add new color
+  async addVehicleColor() {
+    try {
+      let color: any
+      this.submitted = true
+      let data: any
+
+      if (this.vehicleColorForm.invalid) {
+        return
+      }
+
+      color = this.vehicleColorForm.value.colorTypeName
+
+      data = await this.common.addVehicleColorComm(color)
+
+      if (data.Status == "Success") {
+
+        $('#exampleModal').modal('hide')
+
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+
+        this.showVehicleColor()
+
+      }
+
+      if (data.Status == "error") {
+
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "error",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+
+        return
+      }
+
+    } catch (error: any) {
+
+      console.log(error)
+
+    }
+
+  }
+
+  //update modal and patch value
+  colorId: any
+  updateModal(item: any) {
+    this.update = true
+    this.add = false
+    this.colorId = item.id
+
+    $('#exampleModal').modal('show')
+
+    this.vehicleColorForm.patchValue({
+      colorTypeName: item.color
+    })
+
+
+  }
+
+  //update Vehicle Color
+  async updateVehicleColor() {
+    try {
+      this.submitted = true
+      let color: any
+      let data: any
+      if (this.vehicleColorForm.invalid) {
+        return
+      }
+
+      color = this.vehicleColorForm.value.colorTypeName;
+
+      data = await this.common.updateVehicleColorComm(this.colorId, color)
+
+      if (data.Status == "Success") {
+
+        $('#exampleModal').modal('hide')
+
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.showVehicleColor()
+
+      }
+
+      if (data.Status == "error") {
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "error",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+
+        return
+      }
+
+    } catch (error) {
+      console.log(error)
+
+    }
+
+  }
+
+
+  //Delete Vehicle color
+  async deleteColorType(id: number) {
+
+    try {
+      let colorId = id
+      let data: any
+
+      if (confirm("Do you wants to Delete ?")) {
+        console.log("access")
+      }
+      else {
+        console.log("denied")
+        return
+      }
+
+      data = await this.common.deleteVehicleColorComm(colorId)
+
+      if (data.Status == "Success") {
+
+        //sweet alert popup
+        Swal.fire({
+          // position: "top-end",
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+
+        $('#exampleModal').modal('hide')
+
+        this.showVehicleColor()
+
+      }
+
+      if(data.Status=="error"){
+           //sweet alert popup
+           Swal.fire({
+            // position: "top-end",
+            icon: "error",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 2500
+          });
+
+          return
+      }
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+
+
   }
 
 }

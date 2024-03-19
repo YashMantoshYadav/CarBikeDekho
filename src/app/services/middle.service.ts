@@ -68,27 +68,27 @@ export class MiddleService {
   }
 
   // 3.update vehicle type
-    async updateVehicleType(inputData:any){
+  async updateVehicleType(inputData: any) {
 
-      const httpOption = {
-        headers: new HttpHeaders({
-          'Content-type':'application/json'
-        })
-      }
-
-     return await this.http.patch(this.endpoint.updateVehicleType,inputData,httpOption).toPromise()
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
     }
 
-    // 4. Delete Vehicle Type
-     async deleteVehicleType(inputData:any){
-        const httpOption = {
-          headers: new HttpHeaders({
-            'Content-type':'application/json'
-          })
-        }
+    return await this.http.patch(this.endpoint.updateVehicleType, inputData, httpOption).toPromise()
+  }
 
-      return await this.http.post(this.endpoint.deleteVehicleType,inputData,httpOption).toPromise()
-      }
+  // 4. Delete Vehicle Type
+  async deleteVehicleType(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    }
+
+    return await this.http.post(this.endpoint.deleteVehicleType, inputData, httpOption).toPromise()
+  }
 
 
   //1.get all vehicle Brand list data
@@ -103,36 +103,36 @@ export class MiddleService {
   }
 
   //2.add Vehicle Brand
- async addVehicleBrand(inputData:any){
+  async addVehicleBrand(inputData: any) {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-type':'application/json'
+        'Content-type': 'application/json'
       })
     }
-   return await this.http.post(this.endpoint.addVehicleBrand,inputData,httpOption).toPromise()
+    return await this.http.post(this.endpoint.addVehicleBrand, inputData, httpOption).toPromise()
   }
 
   //3.update Vehicle Brand
-   async updatevehicleBrand(inputData:any){
-      const httpOption = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      }
-
-     return await this.http.post(this.endpoint.updateVehicleBrand,inputData,httpOption).toPromise()
+  async updatevehicleBrand(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     }
 
-  //4.Delete Vehicle Brand
-    deleteBrand(id:number){
-      const httpOption = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      }
+    return await this.http.post(this.endpoint.updateVehicleBrand, inputData, httpOption).toPromise()
+  }
 
-    return this.http.post(this.endpoint.deleteVehicleBrand,id,httpOption).toPromise()
-    }  
+  //4.Delete Vehicle Brand
+  deleteBrand(id: number) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.deleteVehicleBrand, id, httpOption).toPromise()
+  }
 
 
   //1.get all vehicle Launch year list data
@@ -146,42 +146,42 @@ export class MiddleService {
   }
 
   //2.add new Vehicle Launch year
-  vehicleLaunchYear(inputData:any){
+  vehicleLaunchYear(inputData: any) {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type':'application/json'
+        'Content-Type': 'application/json'
       })
     }
 
-   return this.http.post(this.endpoint.addVehicleLaunchYear,inputData,httpOption).toPromise()
+    return this.http.post(this.endpoint.addVehicleLaunchYear, inputData, httpOption).toPromise()
   }
 
   //3.Update vehicle Launch year
-    LaunchYearUpdate(inputData:any){
-      const httpOption = {
-        headers : new HttpHeaders({
-          'Content-Type':'application/json'
-        })
-      }
-
-     return this.http.post(this.endpoint.updateVehicleLauchYear,inputData,httpOption).toPromise()
-    }
-
-
-  //4.Delete Vehicle Launch year
-  
-  LaunchYearDelete(id:number){
-    const httpOption ={
+  LaunchYearUpdate(inputData: any) {
+    const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type':'application/json'
+        'Content-Type': 'application/json'
       })
     }
 
-   return this.http.post(this.endpoint.deleteVehicleLaunchYear,id,httpOption).toPromise()
+    return this.http.post(this.endpoint.updateVehicleLauchYear, inputData, httpOption).toPromise()
   }
 
 
-  //get all vehicle Fuel list data
+  //4.Delete Vehicle Launch year
+
+  LaunchYearDelete(id: number) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.deleteVehicleLaunchYear, id, httpOption).toPromise()
+  }
+
+
+  //1.get all vehicle Fuel list data
   vehicleFuelList() {
     const httpOption = {
       headers: new HttpHeaders({
@@ -192,8 +192,41 @@ export class MiddleService {
     return this.http.get(this.endpoint.getFuelTypeAll, httpOption).toPromise()
   }
 
+  //2.add new fuel type
+  VehiclFuelTypeAdd(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
 
-  //get all vehicle Color list data
+    return this.http.post(this.endpoint.addVehicleFuelType, inputData, httpOption).toPromise()
+  }
+
+  //3.Update Fuel Type
+  VehicleFuelTypeUpdate(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.updateVehicleFuelType, inputData, httpOption).toPromise()
+  }
+
+  //4. Delete Fuel Type
+  VehicleFuelTypeDelete(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.deleteVehicleFuelType, inputData, httpOption).toPromise()
+  }
+
+
+  //1.get all vehicle Color list data
   vehicleColorList() {
     const httpOption = {
       headers: new HttpHeaders({
@@ -202,6 +235,40 @@ export class MiddleService {
     }
 
     return this.http.get(this.endpoint.getVehicleColorAll, httpOption).toPromise()
+  }
+
+  //2. add new color
+  addVehicleColor(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.addVehicleColorApi, inputData, httpOption).toPromise()
+  }
+
+  //3. Update color
+  updateVehicleColor(inputData: any) {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }
+
+    return this.http.post(this.endpoint.updateVehicleColorApi, inputData, httpOption).toPromise()
+
+  }
+
+  //4. Delete Color
+  deleteVehicleColor(inputData:any){
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }
+
+   return this.http.post(this.endpoint.deleteVehicleColorApi,inputData, httpOption).toPromise()
   }
 
 }

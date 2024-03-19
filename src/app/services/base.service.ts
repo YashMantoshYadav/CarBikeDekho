@@ -39,9 +39,15 @@ export class BaseService {
 
    //Vehicle Fuel Type api
    getFuelTypeAll:string = `${this.baseUrl}/fuelList`;
+   addVehicleFuelType:string=`${this.baseUrl}/addFuel`;
+   updateVehicleFuelType:string=`${this.baseUrl}/updateFuel`;
+   deleteVehicleFuelType:string=`${this.baseUrl}/deleteFuelType`;
 
    //Vehicle Color api
    getVehicleColorAll:string = `${this.baseUrl}/colorList`;
+   addVehicleColorApi:string = `${this.baseUrl}/addColor`;
+   updateVehicleColorApi:string =`${this.baseUrl}/updateColor`;
+   deleteVehicleColorApi:string = `${this.baseUrl}/deleteColor`;
 
 
 

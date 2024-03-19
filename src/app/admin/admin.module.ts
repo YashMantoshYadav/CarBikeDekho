@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule} from '@angular/forms'
+import { ReactiveFormsModule} from '@angular/forms';
+
 
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { HeaderComponent } from './header/header.component';
@@ -30,7 +31,8 @@ import { VehicleColorComponent } from './vehicle-color/vehicle-color.component';
     CommonModule,
     AdminRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class AdminModule { }

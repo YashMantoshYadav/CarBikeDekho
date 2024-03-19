@@ -17,7 +17,7 @@
 
         <div class="row">
           <div class="col-12">
-            <table class="table table-bordered table-striped">
+            <table id="dataTable" class="table table-bordered table-striped display">
               <thead class="table-primary">
                 <tr>
                   <th scope="col">Serial No.</th>
@@ -36,8 +36,8 @@
                   <td>{{item.updated_at|date:'yyyy-mm-dd hh:mm:ss'}}</td>
                   <td>
                     <button type="button" class="btn btn-primary margin-button"><i class="far fa-eye"></i></button>
-                    <button type="button" class="btn btn-success margin-button" (click)="update()"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger margin-button" (click)="deleteColorType()"><i class="far fa-trash-alt"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="updateModal(item)"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger margin-button" (click)="deleteColorType(item.id)"><i class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
 
@@ -56,18 +56,24 @@
     <div class="modal-dialog modal-ml">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add New Vehicle Color</h5>
+          <h5 class="modal-title" id="exampleModalLabel" *ngIf="add" (click)="addVehicleColor()">Add New Vehicle Color</h5>
+          <h5 class="modal-title" id="exampleModalLabel" *ngIf="update" (click)="updateVehicleColor()">Update Vehicle Color</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form [formGroup]="vehicleColorForm">
             <div class="row">
               <div class="col-md-12">
 
                 <div class="mb-3">
                   <label for="" class="label-font">Vehicle Color Type</label>
                   <input type="text" class="form-control" id="formGroupExampleInput"
-                    placeholder="Entert vehicle Color Type">
+                    placeholder="Entert vehicle Color Type" formControlName="colorTypeName"
+                    [ngClass]="{'is-invalid': submitted && f.colorTypeName.errors}">
+
+                    <div *ngIf="submitted && f.colorTypeName.errors" class="invalid-feedback">
+                      <div *ngIf="f.colorTypeName.errors.required">Required</div>
+                    </div>
                 </div>
 
 
@@ -76,7 +82,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-primary" *ngIf="add" (click)="addVehicleColor()">Submit</button>
+          <button type="button" class="btn btn-primary" *ngIf="update" (click)="updateVehicleColor()">Update</button>
         </div>
       </div>
     </div>

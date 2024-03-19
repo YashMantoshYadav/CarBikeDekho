@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MiddleService } from './middle.service';
-import { addBrand, addNewVehicle, addyearModal, deleteType, deleteVehicle, updateBrand, updateYearModal, vehiclType } from '../admin/modal/modal';
+import { addBrand, addColorTypeModal, addFuelTypeModal, addNewVehicle, addyearModal, deleteType, deleteVehicle, updateBrand, updateColorModal, updateFuelTypeModal, updateYearModal, vehiclType } from '../admin/modal/modal';
 
 @Injectable({
   providedIn: 'root'
@@ -300,7 +300,7 @@ export class CommonService {
 
   }
 
-  //get all Fuel List data
+  //1.get all Fuel List data
   async getAllVehicleFuelTypeComm() {
     let val: any
     try {
@@ -317,8 +317,64 @@ export class CommonService {
     }
   }
 
+  //2. add new Fuel Type
+  async VehiclFuelTypeAddComm(fuelType: string) {
+    try {
+      let data: any
+      let inputData = new addFuelTypeModal()
+      inputData.fuel = fuelType
 
-  //get all Color List data
+      await this.middle.VehiclFuelTypeAdd(inputData).then((result: any) => {
+        data = result
+      })
+      return data
+
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+
+  //3. update Fuel Type
+  async VehicleFuelTypeUpdateComm(id: any, fuel: any) {
+    try {
+      let data: any
+      let inputData = new updateFuelTypeModal()
+      inputData.id = id
+      inputData.fuel = fuel
+
+      await this.middle.VehicleFuelTypeUpdate(inputData).then((result: any) => {
+        data = result
+      })
+
+      return data
+
+    } catch (error: any) {
+      console.log(error)
+
+    }
+  }
+
+  //4. Delete Fuel Type
+  async VehicleFuelTypeDeleteComm(id: any) {
+    try {
+
+      const IdObject = { id: id }
+      let data: any
+
+      await this.middle.VehicleFuelTypeDelete(IdObject).then((result: any) => {
+        data = result
+      })
+
+      return data
+
+    } catch (error: any) {
+      console.log(error)
+
+    }
+  }
+
+
+  //1.get all Color List data
   async getAllVehicleColorTypeComm() {
     let val: any
     try {
@@ -335,6 +391,69 @@ export class CommonService {
     }
   }
 
+
+  //2. add new vehicle Color
+  async addVehicleColorComm(colorType: string) {
+    try {
+      let data: any
+      const inputData = new addColorTypeModal()
+      inputData.color = colorType
+
+      await this.middle.addVehicleColor(inputData).then((result: any) => {
+        data = result
+      })
+
+      return data
+
+    } catch (error: any) {
+
+      console.log(error)
+
+    }
+  }
+
+  //3.update Vehicle Color
+  async updateVehicleColorComm(id: any, color: any) {
+    try {
+      let data: any
+      const inputData = new updateColorModal()
+      inputData.id = id;
+      inputData.color = color;
+
+      await this.middle.updateVehicleColor(inputData).then((result: any) => {
+        data = result
+      })
+
+      return data
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+
+  }
+
+
+  //4.Delete Vehicle Color
+  async deleteVehicleColorComm(id: number) {
+
+    try {
+      const idObject = { id: id }
+      let data: any
+      await this.middle.deleteVehicleColor(idObject).then((result: any) => {
+        data = result
+      })
+
+      return data
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+
+  }
 
 
 
