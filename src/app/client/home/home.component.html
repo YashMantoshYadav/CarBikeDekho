@@ -19,7 +19,7 @@
 
         <!-- login button -->
         <div id="login-btn">
-            <button type="button" class="btn" [routerLink]="['/admin']">login</button>
+            <a  class="btn" [routerLink]="['/admin']">login</a>
             <i class="fa-regular fa-user"></i>
         </div>
 
@@ -96,15 +96,14 @@
     <!-- icon section end -->
 
     <!-- vehical section starts-->
-
-    <!-- <section class="vehical" id="vehicles">
+    <section class="vehical" id="vehicles">
 
         <h1 class="heading">popular <span>vehicals</span></h1>
 
         <div class="slider">
 
             <div class="wrapper">
-                <div class="fa-solid fa-angle-left preNext" id="preBtn" appPreviews></div>
+                <div class="fa-solid fa-angle-left preNext" id="preBtn"></div>
 
                 <div class="wraper-box">
                     <div class="box active" id="car-img1">
@@ -204,7 +203,7 @@
                     </div>
                 </div>
 
-                <div class="fa-solid fa-angle-right preNext " id="nextBtn"  appNext></div>
+                <div class="fa-solid fa-angle-right preNext " id="nextBtn"></div>
             </div>
 
 
@@ -218,11 +217,11 @@
             </div>
         </div>
 
-    </section> -->
+    </section>
     <!-- vehical section end-->
 
     <!-- services section starts -->
-    <!-- <section class="services" id="services">
+    <section class="services" id="services">
 
         <h1 class="heading">our <span>services</span></h1>
 
@@ -271,62 +270,10 @@
             </div>
         </div>
 
-    </section> -->
+    </section>
     <!-- services section end -->
 
     <!-- featured section starts -->
-    <section class="featured" id="featured">
-
-        <h1 class="heading"><span>featured</span> cars</h1>
-
-        <div class="featured-slider">
-
-            <div class="featured-wrapper">
-                <div class="fa-solid fa-angle-left preNext" id="fPreBtn" (click)="prevImage()"></div>
-
-                <div class="featured-wrapper2">
-                    <div class="featured-wrapper-box">
-
-                        <div class="box active" *ngFor="let item of images">
-                            <img src="{{item}}" alt="">
-                            <h3>new model</h3>
-                            <div class="stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star-half-stroke"></i>
-                            </div>
-                            <div class="price">Rs. 1,500,000</div>
-                            <a href="#" class="btn">check out</a>
-
-
-                        </div>
-
-
-
-                    </div>
-                </div>
-
-                <div class="fa-solid fa-angle-right preNext" id="fNextBtn" (click)="nextImage()"></div>
-            </div>
-
-            <div class="fActCircle">
-                <div class="fa-regular fa-solid fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-                <div class="fa-regular fa-circle"></div>
-            </div>
-
-        </div>
-
-
-    </section>
-
     <section style="background-color: aquamarine;">
         <h1 class="heading"><span>featured</span> cars</h1>
         <div style="margin-left: 10%; margin-right: 10%; margin-top: 20px;">
@@ -354,12 +301,10 @@
         </div>
 
     </section>
-
-
     <!-- featured section end -->
 
     <!-- subscribe section starts -->
-    <!-- <section class="subscribe">
+    <section class="subscribe">
 
         <h3>subscribe for latest updates</h3>
 
@@ -370,13 +315,11 @@
 
             <input type="submit" placeholder="subBtn">
         </form>
-    </section> -->
+    </section>
     <!-- subscribe section end -->
 
     <!-- review section starts -->
-
-
-    <!-- <section class="reviews" id="reviews">
+    <section class="reviews" id="reviews">
 
         <h1 class="heading">client's <span>review</span></h1>
 
@@ -496,21 +439,11 @@
                 <div class="fa-regular fa-circle"></div>
             </div>
         </div>
-    </section> -->
-
-
-
-
-
+    </section>
     <!-- review section end -->
 
     <!-- contact section starts -->
-
-
-
-
-
-    <!-- <section class="contact" id="contact">
+    <section class="contact" id="contact">
         <h1 class="heading"><span>contact</span> us</h1>
 
         <div class="row">
@@ -529,15 +462,8 @@
             </form>
 
         </div>
-    </section> -->
+    </section>
     <!-- contact section end -->
-
-
-
-
-
-
-
 
     <!-- footer section starts -->
     <section class="footer">
@@ -584,10 +510,20 @@
 
         <div class="copyright">copyright &copy; | all rights reserved</div>
     </section>
-
     <!-- footer section end -->
 
+    <div style="margin-left: 10%; margin-right: 10%; margin-top: 20px;">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <div class="card">
+                    <img src="{{ slide.img }}" alt="" width="100%" class="img-style">
+                    <span>Price:1500000</span>
+                </div>
+            </div>
+        </ngx-slick-carousel>
 
+
+    </div>
 
 
 

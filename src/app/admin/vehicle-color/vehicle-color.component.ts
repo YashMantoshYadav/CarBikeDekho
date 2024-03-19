@@ -23,15 +23,6 @@ export class VehicleColorComponent implements OnInit {
     this.showVehicleColor()
     this.createVehicleColorForm()
 
-    $('#dataTable').DataTable({
-      layout: {
-          top1: {
-              searchBuilder: {
-                  logic: 'OR'
-              }
-          }
-      }
-  });
   }
 
   //vehicle Color Type all list
@@ -40,6 +31,21 @@ export class VehicleColorComponent implements OnInit {
     try {
       this.allColorTypeList = await this.common.getAllVehicleColorTypeComm()
       console.log("Vehicle All Color Type", this.allColorTypeList)
+
+       //dataTable function 
+       $('#example').DataTable().destroy()
+       $(document).ready(function () {
+         $('#example').DataTable({
+           layout: {
+             top1: {
+               searchBuilder: {
+                 logic: 'OR'
+               }
+             },
+             
+           },
+         });
+       })
 
     } catch (error) {
 

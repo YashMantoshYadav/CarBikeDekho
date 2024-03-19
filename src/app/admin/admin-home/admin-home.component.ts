@@ -15,6 +15,8 @@ export class AdminHomeComponent implements OnInit {
   sideNavStatus: boolean = false
   addVehicleForm: FormGroup | any
   submitted: boolean = false
+  add:boolean=false
+  update:boolean=false
 
 
   constructor(private common: CommonService) { }
@@ -29,6 +31,7 @@ export class AdminHomeComponent implements OnInit {
 
     this.createForm()
 
+
   }
 
 
@@ -42,13 +45,16 @@ export class AdminHomeComponent implements OnInit {
       colorName: new FormControl('', Validators.required),
       priceName: new FormControl('', Validators.required),
       ratingName: new FormControl('', Validators.required),
-      imageLinkname: new FormControl('', Validators.required)
+      imageLinkname: new FormControl('', Validators.required),
+      vehicleName: new FormControl('',Validators.required)
 
     })
   }
 
   //open add vehicle modal
   openModal() {
+    this.add=true
+    this.update=false
     $('#exampleModal').modal('show');
 
   }
@@ -65,12 +71,29 @@ export class AdminHomeComponent implements OnInit {
   async getAllData() {
     try {
 
+
       let data = await this.common.getAllVehicleComm()
 
       if (data.Status == "Success") {
         this.allVehicleList = data.data
         console.log("Vehicle all list", this.allVehicleList)
       }
+
+
+      //dataTable function 
+      $('#example').DataTable().destroy()
+      $(document).ready(function () {
+        $('#example').DataTable({
+          layout: {
+            top1: {
+              searchBuilder: {
+                logic: 'OR'
+              }
+            },
+            
+          },
+        });
+      })
 
     } catch (error) {
       console.log(error)
@@ -81,7 +104,8 @@ export class AdminHomeComponent implements OnInit {
   //2.add new Vehicle
   async addNewVehicle() {
     try {
-      //  console.log(this.addVehicleForm.value)
+       console.log(this.addVehicleForm.value)
+       
       this.submitted = true
 
       if (this.addVehicleForm.invalid) {
@@ -98,9 +122,14 @@ export class AdminHomeComponent implements OnInit {
       let rating = this.addVehicleForm.value.ratingName;
       let image = this.addVehicleForm.value.imageLinkname;
       let price = this.addVehicleForm.value.priceName;
+      let name = this.addVehicleForm.value.vehicleName;
+
+      console.log(type,year,brand,fuel,description,color,rating,image,price,name)
+
+    
 
 
-      let data = await this.common.addNewVehicleComm(type, year, brand, fuel, description, color, rating, image, price)
+      let data = await this.common.addNewVehicleComm(type, year, brand, fuel, description, color, rating, image, price, name)
       console.log(data)
       if (data.Status == "Success") {
         this.getAllData()
@@ -115,7 +144,7 @@ export class AdminHomeComponent implements OnInit {
           timer: 2500
         });
 
-       this.closeModal()
+        this.closeModal()
       }
 
     } catch (error) {
@@ -124,7 +153,7 @@ export class AdminHomeComponent implements OnInit {
 
   }
 
-  closeModal(){
+  closeModal() {
     this.addVehicleForm.controls['vehicleType'].setValue('');
     this.addVehicleForm.controls['launchYear'].setValue('');
     this.addVehicleForm.controls['brandName'].setValue('');
@@ -134,7 +163,8 @@ export class AdminHomeComponent implements OnInit {
     this.addVehicleForm.controls['imageLinkname'].setValue('');
     this.addVehicleForm.controls['priceName'].setValue('');
     this.addVehicleForm.controls['colorName'].setValue('');
-    this.submitted=false
+    this.addVehicleForm.controls['vehicleName'].setValue('');
+    this.submitted = false
   }
 
 
@@ -173,13 +203,52 @@ export class AdminHomeComponent implements OnInit {
 
   }
   //4.Update Vehicle From list
-  updateVehicle() {
-    alert("Comming Soon......");
+  updateVehicleModal(item:any) {
+    this.update=true
+    this.add=false
+    $('#exampleModal').modal('show');
 
+    // console.log(item)
+    this.addVehicleForm.patchValue({
+      vehicleType:item.type,
+      launchYear:item.launch_year,
+      brandName:item.brand,
+      fuelTypeName:item.fuel_type,
+      descriptionName:item.description,
+      ratingName:item.rating,
+      imageLinkname:item.image,
+      priceName:item.price,
+      colorName:item.color,
+      vehicleName:item.vehicle_name
+
+    })
+
+  
+  }
+
+  updateVehicleDetails(){
+    this.submitted=true
+
+    let type = this.addVehicleForm.value.vehicleType;
+    let year = this.addVehicleForm.value.launchYear;
+    let brand = this.addVehicleForm.value.brandName;
+    let fuel = this.addVehicleForm.value.fuelTypeName;
+    let description = this.addVehicleForm.value.descriptionName;
+    let color = this.addVehicleForm.value.colorName;
+    let rating = this.addVehicleForm.value.ratingName;
+    let image = this.addVehicleForm.value.imageLinkname;
+    let price = this.addVehicleForm.value.priceName;
+    let name = this.addVehicleForm.value.vehicleName;
+
+    // console.log(type,year,brand,fuel,description,color,rating,image,price,name)
+
+    
+    
   }
 
   //5. View Vehicle Detail
-  viewVehicleDetails() {
+  viewVehicleDetails(item:any) {
+    console.log(item)
     alert("Comming Soon......");
 
   }

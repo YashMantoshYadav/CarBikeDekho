@@ -20,7 +20,7 @@
 
         <div class="row">
           <div class="col-12">
-            <table class="table table-bordered table-striped">
+            <table id="example" class="table table-bordered table-striped display nowrap">
               <thead class="table-primary">
                 <tr>
                   <th scope="col">Serial No.</th>
@@ -42,8 +42,8 @@
                   <td>{{item.fuel_type}}</td>
                   <td>{{item.price}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary margin-button" (click)="viewVehicleDetails()"><i class="far fa-eye"></i></button>
-                    <button type="button" class="btn btn-success margin-button" (click)="updateVehicle()"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-primary margin-button" (click)="viewVehicleDetails(item)"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success margin-button" (click)="updateVehicleModal(item)"><i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-danger margin-button" (click)="deleteVehicle(item.id)"><i class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
@@ -62,7 +62,8 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add New Vehicle</h5>
+          <h5 *ngIf="add" class="modal-title" id="exampleModalLabel">Add New Vehicle</h5>
+          <h5 *ngIf="update" class="modal-title" id="exampleModalLabel">Update Vehicle Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
@@ -129,6 +130,7 @@
                     <div *ngIf="f.descriptionName.errors.required">Required</div>
                   </div>
                 </div>
+                
 
               </div>
 
@@ -182,13 +184,24 @@
                     </div>
                 </div>
 
+                <label for="" class="label-font">Vehicle Name</label>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Vehicle Name"
+                    formControlName="vehicleName" [ngClass]="{'is-invalid': submitted && f.vehicleName.errors}">
+
+                    <div *ngIf="submitted && f.vehicleName.errors" class="invalid-feedback">
+                      <div *ngIf="f.vehicleName.errors.required">Required</div>
+                    </div>
+                </div>
+
               </div>
 
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="addNewVehicle()">Submit</button>
+          <button *ngIf="add" type="button" class="btn btn-primary" (click)="addNewVehicle()">Submit</button>
+          <button *ngIf="update" type="button" class="btn btn-primary" (click)="updateVehicleDetails()">Update</button>
         </div>
       </div>
     </div>

@@ -33,6 +33,21 @@ export class VehicleLaunchYearComponent implements OnInit {
       this.allLaunchYearList = await this.common.getAllVehicleLaunchYearComm()
       console.log("Vehicle All Launch Year", this.allLaunchYearList)
 
+      //dataTable function 
+      $('#example').DataTable().destroy()
+      $(document).ready(function () {
+        $('#example').DataTable({
+          layout: {
+            top1: {
+              searchBuilder: {
+                logic: 'OR'
+              }
+            },
+            
+          },
+        });
+      })
+
     } catch (error) {
 
     }

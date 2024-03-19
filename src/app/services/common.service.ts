@@ -28,7 +28,7 @@ export class CommonService {
   }
 
   //2.add new vehicle
-  async addNewVehicleComm(type: any, year: any, brand: any, fuel: any, description: any, color: any, rating: any, image: any, price: any) {
+  async addNewVehicleComm(type: any, year: any, brand: any, fuel: any, description: any, color: any, rating: any, image: any, price: any, vehiclename:any) {
     try {
 
       let data: any
@@ -43,7 +43,10 @@ export class CommonService {
       inputData.rating = rating;
       inputData.image = image;
       inputData.price = price
-      // console.log(inputData)
+      inputData.vehicle_name = vehiclename;
+      // console.log("InputData--->",inputData)
+
+    
 
       await this.middle.addVehicle(inputData).then((result: any) => {
         // console.log(result)

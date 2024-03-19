@@ -8,6 +8,7 @@ export class addNewVehicle{
     rating:any
     image:any
     price:any
+    vehicle_name:any
 }
 
 export class deleteVehicle{

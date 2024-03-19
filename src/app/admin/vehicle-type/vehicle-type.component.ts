@@ -29,6 +29,23 @@ export class VehicleTypeComponent implements OnInit {
     try {
       this.allTypeList = await this.common.getAllVehicleTypeComm()
       console.log("Vehicle All Type", this.allTypeList)
+
+
+      //dataTable function 
+      $('#example').DataTable().destroy()
+      $(document).ready(function () {
+        $('#example').DataTable({
+          layout: {
+            top1: {
+              searchBuilder: {
+                logic: 'OR'
+              }
+            },
+            
+          },
+        });
+      })
+      
     } catch (error) {
 
     }

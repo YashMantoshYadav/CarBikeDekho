@@ -32,6 +32,21 @@ export class VehicleBrandComponent implements OnInit {
       this.allBrandList = await this.common.getAllVehicleBrandComm()
       console.log("Vehicle All Brand", this.allBrandList)
 
+      //dataTable function 
+      $('#example').DataTable().destroy()
+      $(document).ready(function () {
+        $('#example').DataTable({
+          layout: {
+            top1: {
+              searchBuilder: {
+                logic: 'OR'
+              }
+            },
+            
+          },
+        });
+      })
+
     } catch (error) {
 
     }

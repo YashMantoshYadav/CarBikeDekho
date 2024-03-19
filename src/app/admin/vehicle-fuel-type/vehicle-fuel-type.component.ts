@@ -33,6 +33,22 @@ export class VehicleFuelTypeComponent implements OnInit {
       this.allFuelTypeList = await this.common.getAllVehicleFuelTypeComm()
       console.log("Vehicle All Fuel Type", this.allFuelTypeList)
 
+
+      //dataTable function 
+      $('#example').DataTable().destroy()
+      $(document).ready(function () {
+        $('#example').DataTable({
+          layout: {
+            top1: {
+              searchBuilder: {
+                logic: 'OR'
+              }
+            },
+            
+          },
+        });
+      })
+
     } catch (error) {
 
     }
