@@ -1,14 +1,15 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/services/common.service';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private comm: CommonService) { }
   activeImageIndex = 0;
   images: string[] = [
     'assets/image/car7.png',
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit {
   slideConfig = {
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: false, // Add this line for autoplay
+    autoplay: true, // Add this line for autoplay
     autoplaySpeed: 2000, // Adjust autoplay speed as needed
     arrows: true,
     dots: true,
@@ -75,11 +76,11 @@ export class HomeComponent implements OnInit {
   showImage(index: number): void {
     if (index >= 0 && index < this.images.length) {
       this.activeImageIndex = index;
-      console.log(this.activeImageIndex )
+      console.log(this.activeImageIndex)
     }
   }
 
-  
+
   nextImage(): void {
     this.activeImageIndex = (this.activeImageIndex + 1) % this.images.length;
   }
